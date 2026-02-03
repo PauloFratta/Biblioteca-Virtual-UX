@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookFlow - Biblioteca Digital Acessível</title>
+    <meta name="description" content="Plataforma de biblioteca universitária com acessibilidade integrada">
+    <meta name="theme-color" content="#0056b3">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/accessibility.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Ícone -->
+    <link rel="icon" href="images/icons/book-icon.svg" type="image/svg+xml">
+    
+    <!-- Manifesto PWA -->
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Navegação por teclado - primeiro elemento -->
+    <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+    
+    <!-- Cabeçalho -->
+    <header class="header" role="banner" aria-label="Cabeçalho principal">
+        <div class="container">
+            <div class="logo">
+                <h1>
+                    <a href="/" aria-label="BookFlow - Voltar para página inicial">
+                        <span aria-hidden="true">📚</span> BookFlow
+                    </a>
+                </h1>
+                <p class="tagline">Biblioteca Digital Acessível</p>
+            </div>
+            
+            <nav class="main-nav" role="navigation" aria-label="Navegação principal">
+                <ul class="nav-list" role="menu">
+                    <li role="none"><a href="#home" role="menuitem" class="active">Início</a></li>
+                    <li role="none"><a href="#acervo" role="menuitem">Acervo</a></li>
+                    <li role="none"><a href="#sobre" role="menuitem">Sobre</a></li>
+                    <li role="none"><a href="#contato" role="menuitem">Contato</a></li>
+                    <li role="none">
+                        <button 
+                            id="accessibility-toggle" 
+                            class="btn-accessibility"
+                            aria-expanded="false"
+                            aria-label="Abrir painel de configurações de acessibilidade"
+                        >
+                            <span aria-hidden="true">♿</span>
+                            <span class="btn-text">Acessibilidade</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main id="main-content" class="main-content" role="main">
+        <div class="container">
+            <!-- Seção de Busca -->
+            <section class="search-section" aria-labelledby="search-heading">
+                <div class="section-header">
+                    <h2 id="search-heading">Encontre seu livro</h2>
+                    <p class="section-description">
+                        Busque por título, autor, assunto ou ISBN. Use os filtros para refinar sua busca.
+                    </p>
+                </div>
+                
+                <!-- Barra de Busca Acessível -->
+                <div class="search-container">
+                    <div class="search-box" role="search">
+                        <label for="book-search" class="visually-hidden">
+                            Campo de busca: digite o título, autor ou assunto do livro
+                        </label>
+                        <div class="search-input-wrapper">
+                            <input 
+                                type="search" 
+                                id="book-search"
+                                class="search-input"
+                                placeholder="Ex: Design de Interação, ISBN 978-85-..."
+                                aria-describedby="search-instructions"
+                                autocomplete="off"
+                            >
+                            <button 
+                                id="search-button"
+                                class="search-button"
+                                aria-label="Executar busca"
+                            >
+                                🔍
+                            </button>
+                        </div>
+                        <p id="search-instructions" class="help-text">
+                            Dica: Pressione Enter para buscar ou use a tecla Tab para navegar entre os filtros.
+                        </p>
+                    </div>
+
+                    <!-- Filtros de Busca -->
+                    <div class="filters-container">
+                        <fieldset class="filters" aria-label="Filtros de busca avançada">
+                            <legend class="filters-legend">Filtrar por:</legend>
+                            
+                            <div class="filter-group" role="group" aria-labelledby="format-label">
+                                <h3 id="format-label" class="filter-title">Formato do Livro:</h3>
+                                <div class="filter-options">
+                                    <div class="filter-option">
+                                        <input 
+                                            type="checkbox" 
+                                            id="filter-ebook" 
+                                            name="format" 
+                                            value="ebook"
+                                            checked
+                                        >
+                                        <label for="filter-ebook" class="filter-label">
+                                            <span class="filter-icon" aria-hidden="true">📱</span>
+                                            E-book
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="filter-option">
+                                        <input 
+                                            type="checkbox" 
+                                            id="filter-audio" 
+                                            name="format" 
+                                            value="audio"
+                                        >
+                                        <label for="filter-audio" class="filter-label">
+                                            <span class="filter-icon" aria-hidden="true">🔊</span>
+                                            Áudio-livro
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="filter-option">
+                                        <input 
+                                            type="checkbox" 
+                                            id="filter-braille" 
+                                            name="format" 
+                                            value="braille"
+                                        >
+                                        <label for="filter-braille" class="filter-label">
+                                            <span class="filter-icon" aria-hidden="true">⠿</span>
+                                            Braille Digital
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="filter-option">
+                                        <input 
+                                            type="checkbox" 
+                                            id="filter-pdf" 
+                                            name="format" 
+                                            value="pdf"
+                                        >
+                                        <label for="filter-pdf" class="filter-label">
+                                            <span class="filter-icon" aria-hidden="true">📄</span>
+                                            PDF Acessível
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group" role="group" aria-labelledby="accessibility-label">
+                                <h3 id="accessibility-label" class="filter-title">Recursos de Acessibilidade:</h3>
+                                <div class="filter-options">
+                                    <div class="filter-option">
+                                        <input 
+                                            type="checkbox" 
+                                            id="filter-text-to-speech" 
+                                            name="accessibility" 
+                                            value="text-to-speech"
+                                        >
+                                        <label for="filter-text-to-speech" class="filter-label">
+                                            <span class="filter-icon" aria-hidden="true">🗣️</span>
+                                            Leitura em Voz Alta
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="filter-option">
+                                        <input 
+                                            type="checkbox" 
+                                            id="filter-high-contrast" 
+                                            name="accessibility" 
+                                            value="high-contrast"
+                                        >
+                                        <label for="filter-high-contrast" class="filter-label">
+                                            <span class="filter-icon" aria-hidden="true">⚫</span>
+                                            Alto Contraste
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="filter-option">
+                                        <input 
+                                            type="checkbox" 
+                                            id="filter-description" 
+                                            name="accessibility" 
+                                            value="description"
+                                        >
+                                        <label for="filter-description" class="filter-label">
+                                            <span class="filter-icon" aria-hidden="true">📝</span>
+                                            Descrição de Imagens
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção de Livros em Destaque -->
+            <section class="featured-books" aria-labelledby="featured-heading">
+                <div class="section-header">
+                    <h2 id="featured-heading">Livros em Destaque</h2>
+                    <p class="section-description">
+                        Seleção especial com foco em acessibilidade e design inclusivo
+                    </p>
+                </div>
+
+                <div id="books-container" class="books-grid" role="list" aria-label="Lista de livros em destaque">
+                    <!-- Os livros serão carregados dinamicamente via JavaScript -->
+                    <div class="loading" role="status" aria-live="polite">
+                        <p>Carregando livros...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção de Estatísticas -->
+            <section class="stats-section" aria-labelledby="stats-heading">
+                <h2 id="stats-heading" class="visually-hidden">Estatísticas da Biblioteca</h2>
+                <div class="stats-grid">
+                    <div class="stat-card" role="region" aria-label="Total de livros">
+                        <div class="stat-number" id="total-books">0</div>
+                        <div class="stat-label">Livros Disponíveis</div>
+                    </div>
+                    <div class="stat-card" role="region" aria-label="Livros em formato acessível">
+                        <div class="stat-number" id="accessible-books">0</div>
+                        <div class="stat-label">Formatos Acessíveis</div>
+                    </div>
+                    <div class="stat-card" role="region" aria-label="Usuários atendidos">
+                        <div class="stat-number">1.2k+</div>
+                        <div class="stat-label">Usuários Atendidos</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Painel de Acessibilidade (inicialmente oculto) -->
+        <aside 
+            id="accessibility-panel" 
+            class="accessibility-panel hidden"
+            role="region" 
+            aria-labelledby="accessibility-panel-heading"
+            aria-hidden="true"
+        >
+            <div class="panel-header">
+                <h2 id="accessibility-panel-heading">Configurações de Acessibilidade</h2>
+                <button 
+                    id="close-panel" 
+                    class="close-button"
+                    aria-label="Fechar painel de acessibilidade"
+                >
+                    ✕
+                </button>
+            </div>
+
+            <div class="panel-content">
+                <div class="control-group">
+                    <label for="font-size-slider" class="control-label">
+                        <span class="control-icon" aria-hidden="true">🔠</span>
+                        Tamanho da Fonte:
+                    </label>
+                    <div class="slider-container">
+                        <input 
+                            type="range" 
+                            id="font-size-slider" 
+                            min="12" 
+                            max="24" 
+                            value="16"
+                            aria-valuetext="16 pixels"
+                            class="slider"
+                        >
+                        <div class="slider-labels">
+                            <span>A</span>
+                            <span>A+</span>
+                        </div>
+                        <output 
+                            for="font-size-slider" 
+                            id="font-size-output"
+                            class="slider-output"
+                            aria-live="polite"
+                        >
+                            16px
+                        </output>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="contrast-select" class="control-label">
+                        <span class="control-icon" aria-hidden="true">🎨</span>
+                        Modo de Contraste:
+                    </label>
+                    <select 
+                        id="contrast-select" 
+                        class="contrast-select"
+                        aria-describedby="contrast-description"
+                    >
+                        <option value="normal">Normal</option>
+                        <option value="high">Alto Contraste</option>
+                        <option value="dark">Modo Escuro</option>
+                        <option value="sepia">Modo Sépia</option>
+                    </select>
+                    <p id="contrast-description" class="help-text">
+                        Alterar o contraste melhora a legibilidade para pessoas com baixa visão
+                    </p>
+                </div>
+
+                <div class="control-group">
+                    <label for="line-height-select" class="control-label">
+                        <span class="control-icon" aria-hidden="true">↕️</span>
+                        Espaçamento entre Linhas:
+                    </label>
+                    <select id="line-height-select" class="line-height-select">
+                        <option value="1.2">Compacto (1.2)</option>
+                        <option value="1.5" selected>Padrão (1.5)</option>
+                        <option value="2">Amplo (2.0)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span class="control-icon" aria-hidden="true">🚫</span>
+                        Redução de Movimento:
+                    </div>
+                    <div class="toggle-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="reduce-motion">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-text">Reduzir animações</span>
+                        </label>
+                        <p class="help-text">
+                            Recomendado para usuários com sensibilidade a movimentos
+                        </p>
+                    </div>
+                </div>
+
+                <div class="panel-actions">
+                    <button 
+                        id="reset-settings" 
+                        class="btn-secondary"
+                        aria-label="Restaurar todas as configurações para os valores padrão"
+                    >
+                        Restaurar Padrões
+                    </button>
+                    
+                    <button 
+                        id="announce-settings" 
+                        class="btn-tertiary"
+                        aria-label="Anunciar configurações atuais para leitor de tela"
+                    >
+                        Anunciar Configurações
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <p>
+                    <strong>Dica:</strong> Use a tecla <kbd>Tab</kbd> para navegação por teclado e 
+                    <kbd>Esc</kbd> para fechar este painel.
+                </p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>BookFlow</h3>
+                    <p>
+                        Plataforma de biblioteca digital desenvolvida com foco em 
+                        acessibilidade e inclusão digital.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Acessibilidade</h4>
+                    <ul class="footer-links">
+                        <li><a href="#declaracao">Declaração de Acessibilidade</a></li>
+                        <li><a href="#recursos">Recursos de Acessibilidade</a></li>
+                        <li><a href="#relatorio">Relatório de Conformidade</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <address>
+                        <p>Universidade de Exemplo</p>
+                        <p>Email: <a href="mailto:acessibilidade@bookflow.edu">acessibilidade@bookflow.edu</a></p>
+                        <p>Telefone: <a href="tel:+551112345678">(11) 1234-5678</a></p>
+                    </address>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="accessibility-statement">
+                    <h5>Declaração de Acessibilidade</h5>
+                    <p>
+                        Este site segue as Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.1 
+                        no Nível AA. Testado com NVDA, JAWS, VoiceOver e Dragon NaturallySpeaking.
+                    </p>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2024 BookFlow - Projeto Acadêmico de UX/UI. Todos os direitos reservados.</p>
+                    <p class="wcag-badge" role="img" aria-label="Conformidade WCAG 2.1 Nível AA">
+                        WCAG 2.1 AA
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Detalhes do Livro (oculto inicialmente) -->
+    <div id="book-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h3 id="modal-title">Detalhes do Livro</h3>
+                <button 
+                    id="close-modal" 
+                    class="close-button"
+                    aria-label="Fechar detalhes do livro"
+                >
+                    ✕
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Conteúdo será preenchido via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay para modal -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
+
+    <!-- Scripts -->
+    <script src="js/bookData.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
